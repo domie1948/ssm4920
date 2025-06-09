@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="../../assets/css/relys/login.css">
+	</head>
+	<body>
+		<div class="container" id="app">
+			<div class="loginBox">
+				<h3>注册</h3>
+				<form id="loginForm">
+					<div class="input-wrapper">
+						<label>考生账号:</label>
+						<input v-model="kaoshengzhanghao" type="text" name="" placeholder="请输入考生账号">
+					</div>
+					<div class="input-wrapper">
+						<label>密码:</label>
+						<input v-model="mima" type="text" name="" placeholder="请输入密码">
+					</div>
+					<div class="input-wrapper">
+						<label>考生姓名:</label>
+						<input v-model="kaoshengxingming" type="text" name="" placeholder="请输入考生姓名">
+					</div>
+					<div class="input-wrapper">
+						<label>年龄:</label>
+						<input v-model="nianling" type="text" name="" placeholder="请输入年龄">
+					</div>
+					<div class="input-wrapper">
+						<label>手机号:</label>
+						<input v-model="shoujihao" type="text" name="" placeholder="请输入手机号">
+					</div>
+					<div class="input-wrapper">
+						<label>邮箱:</label>
+						<input v-model="youxiang" type="text" name="" placeholder="请输入邮箱">
+					</div>
+				</form>
+				<a href="../login/login.html">已有账号？去登录</a>
+				<button type="button" @click="userRegister">注册</button>
+			</div>
+		</div>
+		<script src="../../assets/js/relys/jquery.js"></script>
+		<script src="../../assets/js/relys/vue.js"></script>
+		<script src="../../assets/js/api/api.js"></script>
+		<script src="../../assets/js/api/defaultuser.js"></script>
+		<script src="../../assets/js/validate.js"></script>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#app",
+				data: {
+					"kaoshengzhanghao": "",
+					"mima": "",
+					"kaoshengxingming": "",
+					"nianling": "",
+					"shoujihao": "",
+					"youxiang": "",
+				},
+				methods: {
+					userRegister(){
+						if(!this.kaoshengzhanghao){
+							alert(`考生账号不能为空`);
+							return
+						}
+						if(!this.mima){
+							alert(`密码不能为空`);
+							return
+						}
+					if(!isIntNumer(this.nianling)){
+						alert(`年龄应输入整数`);
+						return
+					}
+					if(!isMobile(this.shoujihao)){
+						alert(`手机号应输入电话格式`);
+						return
+					}
+					if(!isEmail(this.youxiang)){
+						alert(`邮箱应输入邮件格式`);
+						return
+					}
+						var data = {
+							"kaoshengzhanghao": this.kaoshengzhanghao,
+							"mima": this.mima,
+							"kaoshengxingming": this.kaoshengxingming,
+							"nianling": this.nianling,
+							"shoujihao": this.shoujihao,
+							"youxiang": this.youxiang,
+						}
+						register('kaoshengxinxi', data, function(res){
+							if(res.code==0){
+								alert('注册成功')
+								window.parent.location.href = '../login/login.html'
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

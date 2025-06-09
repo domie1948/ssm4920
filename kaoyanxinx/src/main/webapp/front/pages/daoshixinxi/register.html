@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="../../assets/css/relys/login.css">
+	</head>
+	<body>
+		<div class="container" id="app">
+			<div class="loginBox">
+				<h3>注册</h3>
+				<form id="loginForm">
+					<div class="input-wrapper">
+						<label>导师工号:</label>
+						<input v-model="daoshigonghao" type="text" name="" placeholder="请输入导师工号">
+					</div>
+					<div class="input-wrapper">
+						<label>密码:</label>
+						<input v-model="mima" type="text" name="" placeholder="请输入密码">
+					</div>
+					<div class="input-wrapper">
+						<label>导师姓名:</label>
+						<input v-model="daoshixingming" type="text" name="" placeholder="请输入导师姓名">
+					</div>
+					<div class="input-wrapper">
+						<label>手机号:</label>
+						<input v-model="shoujihao" type="text" name="" placeholder="请输入手机号">
+					</div>
+					<div class="input-wrapper">
+						<label>导师职称:</label>
+						<input v-model="daoshizhicheng" type="text" name="" placeholder="请输入导师职称">
+					</div>
+					<div class="input-wrapper">
+						<label>电子邮箱:</label>
+						<input v-model="dianziyouxiang" type="text" name="" placeholder="请输入电子邮箱">
+					</div>
+				</form>
+				<a href="../login/login.html">已有账号？去登录</a>
+				<button type="button" @click="userRegister">注册</button>
+			</div>
+		</div>
+		<script src="../../assets/js/relys/jquery.js"></script>
+		<script src="../../assets/js/relys/vue.js"></script>
+		<script src="../../assets/js/api/api.js"></script>
+		<script src="../../assets/js/api/defaultuser.js"></script>
+		<script src="../../assets/js/validate.js"></script>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#app",
+				data: {
+					"daoshigonghao": "",
+					"mima": "",
+					"daoshixingming": "",
+					"shoujihao": "",
+					"daoshizhicheng": "",
+					"dianziyouxiang": "",
+				},
+				methods: {
+					userRegister(){
+						if(!this.daoshigonghao){
+							alert(`导师工号不能为空`);
+							return
+						}
+						if(!this.mima){
+							alert(`密码不能为空`);
+							return
+						}
+					if(!isMobile(this.shoujihao)){
+						alert(`手机号应输入电话格式`);
+						return
+					}
+					if(!isEmail(this.dianziyouxiang)){
+						alert(`电子邮箱应输入邮件格式`);
+						return
+					}
+						var data = {
+							"daoshigonghao": this.daoshigonghao,
+							"mima": this.mima,
+							"daoshixingming": this.daoshixingming,
+							"shoujihao": this.shoujihao,
+							"daoshizhicheng": this.daoshizhicheng,
+							"dianziyouxiang": this.dianziyouxiang,
+						}
+						register('daoshixinxi', data, function(res){
+							if(res.code==0){
+								alert('注册成功')
+								window.parent.location.href = '../login/login.html'
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

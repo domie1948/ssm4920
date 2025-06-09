@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="../../assets/css/relys/login.css">
+	</head>
+	<body>
+		<div class="container" id="app">
+			<div class="loginBox">
+				<h3>注册</h3>
+				<form id="loginForm">
+					<div class="input-wrapper">
+						<label>设施名称:</label>
+						<input v-model="sheshimingcheng" type="text" name="" placeholder="请输入设施名称">
+					</div>
+					<div class="input-wrapper">
+						<label>考生账号:</label>
+						<input v-model="kaoshengzhanghao" type="text" name="" placeholder="请输入考生账号">
+					</div>
+					<div class="input-wrapper">
+						<label>考生姓名:</label>
+						<input v-model="kaoshengxingming" type="text" name="" placeholder="请输入考生姓名">
+					</div>
+				</form>
+				<a href="../login/login.html">已有账号？去登录</a>
+				<button type="button" @click="userRegister">注册</button>
+			</div>
+		</div>
+		<script src="../../assets/js/relys/jquery.js"></script>
+		<script src="../../assets/js/relys/vue.js"></script>
+		<script src="../../assets/js/api/api.js"></script>
+		<script src="../../assets/js/api/defaultuser.js"></script>
+		<script src="../../assets/js/validate.js"></script>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#app",
+				data: {
+					"sheshimingcheng": "",
+					"kaoshengzhanghao": "",
+					"kaoshengxingming": "",
+				},
+				methods: {
+					userRegister(){
+						var data = {
+							"sheshimingcheng": this.sheshimingcheng,
+							"kaoshengzhanghao": this.kaoshengzhanghao,
+							"kaoshengxingming": this.kaoshengxingming,
+						}
+						register('sheshishenqing', data, function(res){
+							if(res.code==0){
+								alert('注册成功')
+								window.parent.location.href = '../login/login.html'
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
